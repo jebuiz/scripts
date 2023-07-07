@@ -14,7 +14,7 @@ def find_and_replace_url(file_path, new_url):
 
     # Write the modified YAML back to the file
     with open(file_path, 'w') as file:
-        yaml.dump(data, file)
+        yaml.dump(data, file, default_flow_style=False)
 
 # Check if the correct number of arguments are provided
 if len(sys.argv) < 3:
