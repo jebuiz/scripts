@@ -1,23 +1,29 @@
 import sys
-import ruamel.yaml
+import yaml
 
-def modify_yaml_file(input_file, new_url):
+def find_and_replace_url(file_path, new_url):
     # Read the YAML file
-    with open(input_file, 'r') as file:
-        data = ruamel.yaml.round_trip_load(file)
+    with open(file_path, 'r') as file:
+        data = yaml.safe_load(file)
 
-    # Modify the desired part
-    data['servers'][0]['url'] = new_url
+    # Find and update the URL within the "servers" section
+    servers = data.get('servers', [])
+    for server in servers:
+        if 'url' in server:
+            server['url'] = new_url
 
-    # Convert the modified data back to YAML format
-    ruamel.yaml.round_trip_dump(data, open('openapi-resolved.yaml', 'w'))
+    # Write the modified YAML back to the file
+    with open(file_path, 'w') as file:
+        yaml.dump(data, file)
 
-if __name__ == '__main__':
-    if len(sys.argv) != 3:
-        print('Usage: python modify_yaml.py input.yaml new_url')
-        sys.exit(1)
+# Check if the correct number of arguments are provided
+if len(sys.argv) < 3:
+    print("Usage: python modify_yaml_file.py <file_path> <new_url>")
+    sys.exit(1)
 
-    input_file = sys.argv[1]
-    new_url = sys.argv[2]
+# Retrieve the file path and new URL from command-line arguments
+file_path = sys.argv[1]
+new_url = sys.argv[2]
 
-    modify_yaml_file(input_file, new_url)
+# Call the function to find and replace the URL
+find_and_replace_url(file_path, new_url)
