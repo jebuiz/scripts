@@ -4,13 +4,17 @@ import yaml
 def modify_yaml_file(input_file, new_url):
     # Read the YAML file preserving the nested objects
     with open(input_file, 'r') as file:
-        data = yaml.safe_load(file, Loader=yaml.Loader)
+        data = yaml.safe_load(file, Loader=yaml.Loader if hasattr(yaml, 'Loader') else yaml.SafeLoader)
+
+    print("Loaded YAML data:", data)  # Add this line for debugging
 
     # Modify the desired part
     data['servers'][0]['url'] = new_url
 
     # Convert the modified data back to YAML format
     modified_yaml = yaml.dump(data)
+
+    print("Modified YAML:", modified_yaml)  # Add this line for debugging
 
     # Write the modified YAML to 'openapi_resolved.yaml'
     with open('openapi-resolved.yaml', 'w') as file:
