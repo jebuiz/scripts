@@ -9,11 +9,11 @@ def modify_yaml_file(input_file, new_url):
     # Modify the desired part
     data['servers'][0]['url'] = new_url
 
-    # Convert the modified data back to YAML format
-    modified_yaml = yaml.dump(data)
+    # Convert the modified data back to YAML format with specified line endings
+    modified_yaml = yaml.dump(data, default_flow_style=False, sort_keys=False, indent=2, line_break='\n')
 
-    # Write the modified YAML to 'openapi_resolved.yaml'
-    with open('openapi-resolved.yaml', 'w') as file:
+    # Write the modified YAML to 'openapi_resolved.yaml' with specified line endings
+    with open('openapi-resolved.yaml', 'w', newline='\n') as file:
         file.write(modified_yaml)
 
 if __name__ == '__main__':
