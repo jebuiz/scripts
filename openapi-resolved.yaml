@@ -647,7 +647,7 @@ paths:
         '404':
           description: No plan exists at the requested path.
 servers:
-- url: https://test.ingress-nginx.dm-os-zap-m1.dmmdev.sashq-d.openstack.sas.com/dataPlans
+- url: https://fri.ingress-nginx.rdcesx03221.race.sas.com/dataPlans
   description: mock server
 components:
   schemas:
