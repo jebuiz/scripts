@@ -4,7 +4,7 @@ import yaml
 def modify_yaml_file(input_file, new_url):
     # Read the YAML file preserving the nested objects
     with open(input_file, 'r') as file:
-        data = yaml.safe_load(file, Loader=yaml.Loader if hasattr(yaml, 'Loader') else yaml.SafeLoader)
+        data = yaml.load(file, Loader=yaml.FullLoader)
 
     print("Loaded YAML data:", data)  # Add this line for debugging
 
