@@ -2,9 +2,9 @@ import sys
 import yaml
 
 def modify_yaml_file(input_file, new_url):
-    # Read the YAML file
+    # Read the YAML file preserving the nested objects
     with open(input_file, 'r') as file:
-        data = yaml.safe_load(file)
+        data = yaml.safe_load(file, Loader=yaml.Loader)
 
     # Modify the desired part
     data['servers'][0]['url'] = new_url
