@@ -1,20 +1,16 @@
 import sys
-import yaml
+import ruamel.yaml
 
 def modify_yaml_file(input_file, new_url):
     # Read the YAML file
     with open(input_file, 'r') as file:
-        data = yaml.safe_load(file)
+        data = ruamel.yaml.round_trip_load(file)
 
     # Modify the desired part
     data['servers'][0]['url'] = new_url
 
     # Convert the modified data back to YAML format
-    modified_yaml = yaml.dump(data, sort_keys=False)
-
-    # Write the modified YAML to 'openapi-resolved.yaml'
-    with open('openapi-resolved.yaml', 'w') as file:
-        file.write(modified_yaml)
+    ruamel.yaml.round_trip_dump(data, open('openapi-resolved.yaml', 'w'))
 
 if __name__ == '__main__':
     if len(sys.argv) != 3:
